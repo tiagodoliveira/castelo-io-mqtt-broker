@@ -1,0 +1,13 @@
+services:
+  mosquitto-broker:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto-broker
+    ports:
+      - "1883:1883"  # MQTT Port
+      - "9001:9001"  # Websocket Port (Optional)
+    volumes:
+      - ./init.sh:/init.sh           # Mount the init.sh script
+      - ./config:/mosquitto/config  # Bind mount for Mosquitto configuration
+      - ./data:/mosquitto/data      # Bind mount for Mosquitto data
+      - ./logs:/mosquitto/log       # Bind mount for Mosquitto logs
+    entrypoint: /init.sh
